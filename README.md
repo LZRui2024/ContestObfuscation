@@ -391,9 +391,7 @@ ContestObfuscation/
 │   ├── template_metaprogramming/ # 模板元编程 (新增)
 │   ├── constexpr_obfuscation/    # 常量表达式混淆 (新增)
 │   └── memory_obfuscation/       # 内存操作混淆 (新增)
-├── test.cpp                      # 测试文件
 ├── CMakeLists.txt                # CMake 配置
-└── RELEASE_NOTES.md              # 发布说明
 ```
 
 ## 贡献
