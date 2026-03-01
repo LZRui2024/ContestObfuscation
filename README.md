@@ -37,17 +37,54 @@
 14. **字符串拆分与重组** - 将字符串拆分为多个部分并拼接
 15. **函数内联与反内联** - 展开函数或提取为独立函数
 
+### 高级混淆 (新增)
+16. **花指令混淆** - 插入看似有意义但实际无用的代码 (10 种模板)
+17. **代码膨胀** - 自动展开小循环，增加代码体积
+18. **控制流平坦化增强** - 添加多状态调度变量和虚假状态转换
+19. **模板元编程混淆** - 添加编译时计算的模板函数 (Factorial, Fibonacci, GCD)
+20. **常量表达式混淆** - 将数字常量替换为等效表达式 (如 `2` → `(1 + 1)`)
+21. **内存操作混淆** - 将简单赋值替换为 memcpy 内存操作
+
 ## 使用方法
 
 ### 编译项目
 
 ```bash
-# 使用 CMake 编译
+# 使用 CMake 编译 (推荐)
 cmake -B build
 cmake --build build
 
 # 或使用 g++ 直接编译
-g++ -std=c++17 -o ContestObfuscation.exe src/main/main.cpp src/random_string/RandomStringGenerator.cpp src/function_obfuscation/FunctionObfuscator.cpp src/macro_replacement/MacroReplacer.cpp src/irrelevant_code/IrrelevantCodeInjector.cpp src/useless_functions/UselessFunctionGenerator.cpp src/function_jump/FunctionJumpInjector.cpp src/variable_obfuscation/VariableObfuscator.cpp src/constant_encryption/ConstantEncryptor.cpp src/string_encryption/StringEncryptor.cpp src/code_chunking/CodeChunker.cpp src/control_flow_flattening/ControlFlowFlattener.cpp src/exception_obfuscation/ExceptionObfuscator.cpp src/function_inlining/FunctionInliner.cpp src/instruction_replacement/InstructionReplacer.cpp src/loop_transformation/LoopTransformer.cpp src/string_splitting/StringSplitter.cpp
+g++ -std=c++17 -o ContestObfuscation.exe \
+    src/main/main.cpp \
+    src/random_string/RandomStringGenerator.cpp \
+    src/function_obfuscation/FunctionObfuscator.cpp \
+    src/macro_replacement/MacroReplacer.cpp \
+    src/irrelevant_code/IrrelevantCodeInjector.cpp \
+    src/useless_functions/UselessFunctionGenerator.cpp \
+    src/function_jump/FunctionJumpInjector.cpp \
+    src/variable_obfuscation/VariableObfuscator.cpp \
+    src/constant_encryption/ConstantEncryptor.cpp \
+    src/string_encryption/StringEncryptor.cpp \
+    src/code_chunking/CodeChunker.cpp \
+    src/control_flow_flattening/ControlFlowFlattener.cpp \
+    src/exception_obfuscation/ExceptionObfuscator.cpp \
+    src/function_inlining/FunctionInliner.cpp \
+    src/instruction_replacement/InstructionReplacer.cpp \
+    src/loop_transformation/LoopTransformer.cpp \
+    src/string_splitting/StringSplitter.cpp \
+    src/equivalence_replacement/EquivalenceReplacer.cpp \
+    src/fake_control_flow/FakeControlFlow.cpp \
+    src/instruction_reordering/InstructionReordering.cpp \
+    src/data_flow_obfuscation/DataFlowObfuscation.cpp \
+    src/anti_semantic/AntiSemantic.cpp \
+    src/junk_instructions/JunkInstructions.cpp \
+    src/advanced_string_encryption/AdvancedStringEncryption.cpp \
+    src/code_expansion/CodeExpansion.cpp \
+    src/advanced_control_flow/AdvancedControlFlow.cpp \
+    src/template_metaprogramming/TemplateMetaprogramming.cpp \
+    src/constexpr_obfuscation/ConstexprObfuscation.cpp \
+    src/memory_obfuscation/MemoryObfuscation.cpp
 ```
 
 ### 运行混淆
@@ -183,9 +220,13 @@ int main() {
 | 变量名 | `x`, `y`, `sum` | `vDChpTSXUHM`, `vLGo3JsRmsk` |
 | 关键字 | `for`, `return`, `cout` | `ZkAJpAnJbb9y1FY`, `OXUTwQqJ1wUYUTl`, `vTq61Sgax0pFdRa` |
 | 字符串 | `"Sum: "` | `decrypt({254,216,192,151,141})` |
-| 控制流 | 顺序执行 | switch-case 状态机 |
+| 控制流 | 顺序执行 | switch-case 状态机 + 多状态调度变量 |
 | 异常处理 | 无 | try-catch 包裹 |
-| 代码行数 | ~25 行 | ~100+ 行 |
+| 花指令 | 无 | `volatile int jxxx = (a - a) * (b + c)` |
+| 模板函数 | 无 | `Factorial<N>`, `Fibonacci<N>` |
+| 常量表达式 | `5` | `(2 + 3)` 或 `(10 - 5)` |
+| 内存操作 | `a = b` | `{ int tmp = b; memcpy(&a, &tmp, sizeof(a)); }` |
+| 代码行数 | ~25 行 | ~200+ 行 |
 
 ## 支持的语言特性
 
@@ -200,6 +241,9 @@ int main() {
 - 数字常量
 - struct 和 class 定义
 - 成员函数
+- **模板元编程** (新增 - Factorial, Fibonacci, GCD)
+- **constexpr 函数** (新增)
+- **异常处理** (新增 - try-catch 包装)
 
 ### ⚠️ 部分支持
 - 模板
@@ -214,10 +258,12 @@ int main() {
 ## 注意事项
 
 1. **编译警告**: 混淆后的代码可能会产生编译警告（如不可达代码），这属于正常现象
-2. **代码体积**: 混淆后代码体积会显著增大（通常 3-5 倍）
+2. **代码体积**: 混淆后代码体积会显著增大（通常 10-20 倍）
 3. **调试困难**: 混淆后的代码几乎无法调试
-4. **性能影响**: 部分混淆技术可能轻微影响性能
+4. **性能影响**: 部分混淆技术可能轻微影响性能（花指令、状态转换等）
 5. **兼容性**: 不保证所有 C++ 代码都能成功混淆
+6. **MSVC 支持**: 需要包含所有头文件，使用标准 C++ 语法
+7. **混淆步骤**: 总共 28 步混淆流程，每步都可能改变代码结构
 
 ## 技术细节
 
@@ -243,6 +289,15 @@ int add(int a, int b) {
         }
     }
 }
+
+// 增强版 - 多状态调度
+volatile int st_0 = 42;
+volatile int st_1 = st_0 ^ 23;
+switch ((st_0 + 5) % 3) {
+    case 0: st_0 = (st_0 * 7) % 100; break;
+    case 1: st_0 = (st_0 + 3) % 100; break;
+    case 2: st_0 = (st_0 ^ 8) % 100; break;
+}
 ```
 
 ### 字符串加密
@@ -263,6 +318,45 @@ int x = 5;
 
 // 加密后
 int x = ((116) ^ 113);  // 116 XOR 113 = 5
+
+// 常量表达式混淆
+int y = (2 + 3);  // 原来的 5
+int z = (10 - 5);  // 原来的 5
+```
+
+### 花指令示例
+插入看似有意义但实际无用的代码：
+```cpp
+// 10 种不同的花指令模板
+volatile int jAbc123 = (42 - 42) * (100 + 5);  // 结果为 0
+volatile int jDef456 = ((3 << 2) >> 2) & 7;    // 位运算
+volatile int jGhi789 = rand() % 10 + rand() % 5;  // 随机数
+```
+
+### 模板元编程
+添加编译时计算的模板函数：
+```cpp
+template<int N>
+struct Factorial {
+    static const int value = N * Factorial<N - 1>::value;
+};
+
+template<>
+struct Factorial<0> {
+    static const int value = 1;
+};
+
+// 使用：Factorial<5>::value 在编译时计算 120
+```
+
+### 内存操作混淆
+将简单赋值替换为 memcpy 操作：
+```cpp
+// 原始
+a = b;
+
+// 混淆后
+{ int tmp_xyz = b; memcpy(&a, &tmp_xyz, sizeof(a)); }
 ```
 
 ## 项目结构
@@ -286,9 +380,22 @@ ContestObfuscation/
 │   ├── string_splitting/         # 字符串拆分
 │   ├── function_inlining/        # 函数内联
 │   ├── loop_transformation/      # 循环变换
-│   └── exception_obfuscation/    # 异常处理混淆
+│   ├── exception_obfuscation/    # 异常处理混淆
+│   ├── equivalence_replacement/  # 等价表达式替换
+│   ├── fake_control_flow/        # 虚假控制流
+│   ├── instruction_reordering/   # 指令重排序
+│   ├── data_flow_obfuscation/    # 数据流混淆
+│   ├── anti_semantic/            # 反语义分析
+│   ├── junk_instructions/        # 花指令 (新增)
+│   ├── advanced_string_encryption/ # 高级字符串加密 (新增)
+│   ├── code_expansion/           # 代码膨胀 (新增)
+│   ├── advanced_control_flow/    # 控制流平坦化增强 (新增)
+│   ├── template_metaprogramming/ # 模板元编程 (新增)
+│   ├── constexpr_obfuscation/    # 常量表达式混淆 (新增)
+│   └── memory_obfuscation/       # 内存操作混淆 (新增)
 ├── test.cpp                      # 测试文件
-└── CMakeLists.txt                # CMake 配置
+├── CMakeLists.txt                # CMake 配置
+└── RELEASE_NOTES.md              # 发布说明
 ```
 
 ## 贡献
