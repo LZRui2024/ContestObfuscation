@@ -42,6 +42,10 @@ add_executable (ContestObfuscation
     "src/template_metaprogramming/TemplateMetaprogramming.cpp"
     "src/constexpr_obfuscation/ConstexprObfuscation.cpp"
     "src/memory_obfuscation/MemoryObfuscation.cpp"
+    "src/advanced_obfuscation/AdvancedObfuscation.cpp"
+    "src/semantic_analysis/SemanticAnalyzer.cpp"
+    "src/semantic_analysis/SemanticObfuscator.cpp"
+    "src/semantic_analysis/ExpressionParser.cpp"
 )
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)

@@ -2,16 +2,20 @@
 #define FUNCTION_JUMP_INJECTOR_H
 
 #include <string>
-#include <unordered_map>
+#include <map>
+#include <vector>
 
 class FunctionJumpInjector {
-private:
-    std::unordered_map<std::string, std::string> function_map;
-    std::string generateJumpFunction(const std::string& original_function);
 public:
     std::string injectFunctionJumps(const std::string& code);
-    std::string generateJumpFunctions();
+    std::string getJumpTableDeclaration() const;
     void clear();
+
+private:
+    std::map<std::string, std::string> function_map;
+    std::vector<std::string> jump_functions;
+    std::string table_name;
+    std::string wrapper_name;
 };
 
 #endif // FUNCTION_JUMP_INJECTOR_H

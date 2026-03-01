@@ -31,6 +31,8 @@
 #include "../template_metaprogramming/TemplateMetaprogramming.h"
 #include "../constexpr_obfuscation/ConstexprObfuscation.h"
 #include "../memory_obfuscation/MemoryObfuscation.h"
+#include "../advanced_obfuscation/AdvancedObfuscation.h"
+#include "../semantic_analysis/SemanticObfuscator.h"
 
 std::string readFile(const std::string& filename) {
     std::ifstream file(filename);
@@ -45,6 +47,9 @@ void writeFile(const std::string& filename, const std::string& content) {
 }
 
 int main(int argc, char* argv[]) {
+    // 初始化语义混淆器
+    SemanticObfuscator semantic_obfuscator;
+    
     if (argc != 3) {
         std::cout << "Usage: ContestObfuscation <input_file> <output_file>" << std::endl;
         return 1;
@@ -56,7 +61,7 @@ int main(int argc, char* argv[]) {
     std::string code = readFile(input_file);
     std::cout << "Step 0: Read file completed." << std::endl;
     
-    // 提取原始代码中的#include指令和using namespace语句
+    // 提取原始代码中的#include 指令和 using namespace 语句
     std::string includes = "";
     std::string using_namespace = "";
     size_t pos = 0;
@@ -79,7 +84,7 @@ int main(int argc, char* argv[]) {
         }
     }
     
-    // 移除原始代码中的#include指令和using namespace语句
+    // 移除原始代码中的#include 和 using namespace 语句
     std::string code_without_includes = code.substr(pos);
     
     // 1. 函数名混淆
@@ -100,24 +105,21 @@ int main(int argc, char* argv[]) {
     std::string useless_functions = useless_function_generator.generateUselessFunctions(10);
     std::cout << "Step 3: Useless functions generated." << std::endl;
     
-    // 4. 生成函数跳转
-    std::cout << "Step 4: Injecting function jumps..." << std::endl;
-    FunctionJumpInjector function_jump_injector;
-    std::string code_with_jumps = function_jump_injector.injectFunctionJumps(code_with_irrelevant);
-    std::cout << "Step 4: Function jumps injected." << std::endl;
-    std::string jump_functions = function_jump_injector.generateJumpFunctions();
-    std::cout << "Step 4: Jump functions generated." << std::endl;
+    // 4. 生成函数跳转（跳过）
+    std::cout << "Step 4: Skipping function jumps..." << std::endl;
+    std::string code_with_jumps = code_with_irrelevant;
+    std::string jump_functions = "";
+    std::cout << "Step 4: Skipped." << std::endl;
     
-    // 5. 变量名混淆
-    std::cout << "Step 5: Obfuscating variables..." << std::endl;
-    VariableObfuscator variable_obfuscator;
-    std::string code_with_variable_obfuscation = variable_obfuscator.obfuscateVariables(code_with_jumps);
-    std::cout << "Step 5: Variables obfuscated." << std::endl;
+    // 5. 变量名混淆（跳过）
+    std::cout << "Step 5: Skipping variable obfuscation..." << std::endl;
+    std::string code_with_vars = code_with_jumps;
+    std::cout << "Step 5: Skipped." << std::endl;
     
     // 6. 常量加密
     std::cout << "Step 6: Encrypting constants..." << std::endl;
     ConstantEncryptor constant_encryptor;
-    std::string code_with_constant_encryption = constant_encryptor.encryptConstants(code_with_variable_obfuscation);
+    std::string code_with_constant_encryption = constant_encryptor.encryptConstants(code_with_vars);
     std::cout << "Step 6: Constants encrypted." << std::endl;
     
     // 7. 字符串加密
@@ -193,7 +195,7 @@ int main(int argc, char* argv[]) {
     std::string code_with_anti_semantic = anti_semantic.addAntiSemanticAnalysis(code_with_data_flow);
     std::cout << "Step 18: Anti-semantic analysis added." << std::endl;
     
-    // 19. 生成宏定义
+    // 19. 生成宏
     std::cout << "Step 19: Generating macros..." << std::endl;
     MacroReplacer macro_replacer;
     std::string macros = macro_replacer.generateMacros();
@@ -204,53 +206,64 @@ int main(int argc, char* argv[]) {
     std::string code_with_macros = macro_replacer.replaceMacros(code_with_anti_semantic);
     std::cout << "Step 20: Macros replaced." << std::endl;
     
-    // 21. 虚假控制流（对抗 AI 分析）- 在宏替换之后执行，避免类型关键字被替换
-    std::cout << "Step 21: Adding fake control flow..." << std::endl;
+    // 22. 虚假控制流（对抗 AI 分析）- 在宏替换之后执行，避免类型关键字被替换
+    std::cout << "Step 22: Adding fake control flow..." << std::endl;
     FakeControlFlow fake_control_flow;
     std::string code_with_fake_flow = fake_control_flow.addFakeControlFlow(code_with_macros);
-    std::cout << "Step 21: Fake control flow added." << std::endl;
+    std::cout << "Step 22: Fake control flow added." << std::endl;
     
-    // 22. 添加花指令（对抗 AI 分析）
-    std::cout << "Step 22: Adding junk instructions..." << std::endl;
+    // 23. 添加花指令（对抗 AI 分析）
+    std::cout << "Step 23: Adding junk instructions..." << std::endl;
     JunkInstructions junk_instructions;
     std::string code_with_junk = junk_instructions.addJunkInstructions(code_with_fake_flow);
-    std::cout << "Step 22: Junk instructions added." << std::endl;
+    std::cout << "Step 23: Junk instructions added." << std::endl;
     
-    // 23. 代码膨胀（循环展开）
-    std::cout << "Step 23: Expanding code..." << std::endl;
+    // 24. 代码膨胀（循环展开）
+    std::cout << "Step 24: Expanding code..." << std::endl;
     CodeExpansion code_expansion;
     std::string code_with_expansion = code_expansion.expandLoops(code_with_junk);
-    std::cout << "Step 23: Code expanded." << std::endl;
+    std::cout << "Step 24: Code expanded." << std::endl;
     
-    // 24. 异常混淆
-    std::cout << "Step 24: Adding exception handling..." << std::endl;
+    // 25. 异常混淆
+    std::cout << "Step 25: Adding exception handling..." << std::endl;
     ExceptionObfuscator exception_obfuscator;
     std::string code_with_exceptions = exception_obfuscator.addExceptionHandling(code_with_expansion);
-    std::cout << "Step 24: Exception handling added." << std::endl;
+    std::cout << "Step 25: Exception handling added." << std::endl;
     
-    // 25. 控制流平坦化增强
-    std::cout << "Step 25: Adding advanced control flow flattening..." << std::endl;
+    // 26. 控制流平坦化增强
+    std::cout << "Step 26: Adding advanced control flow flattening..." << std::endl;
     AdvancedControlFlow advanced_control_flow;
     std::string code_with_advanced_flow = advanced_control_flow.addAdvancedFlattening(code_with_exceptions);
-    std::cout << "Step 25: Advanced control flow flattening added." << std::endl;
+    std::cout << "Step 26: Advanced control flow flattening added." << std::endl;
     
-    // 26. 模板元编程混淆
-    std::cout << "Step 26: Adding template metaprogramming..." << std::endl;
+    // 27. 模板元编程混淆
+    std::cout << "Step 27: Adding template metaprogramming..." << std::endl;
     TemplateMetaprogramming template_metaprogramming;
     std::string code_with_templates = template_metaprogramming.addTemplateMetaprogramming(code_with_advanced_flow);
-    std::cout << "Step 26: Template metaprogramming added." << std::endl;
+    std::cout << "Step 27: Template metaprogramming added." << std::endl;
     
-    // 27. 常量表达式混淆
-    std::cout << "Step 27: Obfuscating constants with constexpr..." << std::endl;
+    // 28. 常量表达式混淆
+    std::cout << "Step 28: Obfuscating constants with constexpr..." << std::endl;
     ConstexprObfuscation constexpr_obfuscation;
     std::string code_with_constexpr = constexpr_obfuscation.obfuscateConstants(code_with_templates);
-    std::cout << "Step 27: Constants obfuscated with constexpr." << std::endl;
+    std::cout << "Step 28: Constants obfuscated with constexpr." << std::endl;
     
-    // 28. 内存操作混淆
-    std::cout << "Step 28: Adding memory operations..." << std::endl;
+    // 29. 内存操作混淆
+    std::cout << "Step 29: Adding memory operations..." << std::endl;
     MemoryObfuscation memory_obfuscation;
     std::string code_with_memory_ops = memory_obfuscation.addMemoryOperations(code_with_constexpr);
-    std::cout << "Step 28: Memory operations added." << std::endl;
+    std::cout << "Step 29: Memory operations added." << std::endl;
+    
+    // 语义混淆（在变量混淆和宏替换之后）
+    std::cout << "Step 30: Adding semantic obfuscation..." << std::endl;
+    code_with_memory_ops = semantic_obfuscator.addSemanticObfuscation(code_with_memory_ops);
+    std::cout << "Step 30: Semantic obfuscation added." << std::endl;
+    
+    // 31. 高级混淆（TEA-like、状态机、不透明谓词等）
+    std::cout << "Step 31: Adding advanced obfuscation..." << std::endl;
+    AdvancedObfuscation advanced_obfuscation;
+    std::string code_with_advanced = advanced_obfuscation.addAdvancedObfuscation(code_with_memory_ops);
+    std::cout << "Step 31: Advanced obfuscation added." << std::endl;
     
     // 确保包含必要的头文件
     if (includes.find("#include <iostream>") == std::string::npos) {
@@ -264,7 +277,7 @@ int main(int argc, char* argv[]) {
     }
     
     // 组合所有内容
-    std::string obfuscated_code = includes + "\n" + using_namespace + "\n" + macros + decrypt_function + useless_functions + jump_functions + code_with_memory_ops;
+    std::string obfuscated_code = includes + "\n" + using_namespace + "\n" + macros + decrypt_function + useless_functions + jump_functions + code_with_advanced;
     
     writeFile(output_file, obfuscated_code);
     

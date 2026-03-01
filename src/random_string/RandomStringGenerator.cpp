@@ -17,7 +17,10 @@ std::string RandomStringGenerator::generate(int length) {
     init();
     std::string result;
     result.reserve(length);
-    for (int i = 0; i < length; ++i) {
+    const char* letter_charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const int letter_size = 52;
+    result += letter_charset[rand() % letter_size];
+    for (int i = 1; i < length; ++i) {
         result += charset[rand() % charset_size];
     }
     return result;

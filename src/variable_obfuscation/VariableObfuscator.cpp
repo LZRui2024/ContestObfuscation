@@ -48,7 +48,7 @@ std::string VariableObfuscator::obfuscateVariables(const std::string& code) {
                 in_using_namespace = true;
             }
         }
-        if (!in_using_namespace && var_name != "int" && var_name != "double" && var_name != "float" && var_name != "bool" && var_name != "char" && var_name != "void" && var_name != "string" && var_name != "vector" && var_name != "std") {
+        if (!in_using_namespace && var_name != "int" && var_name != "double" && var_name != "float" && var_name != "bool" && var_name != "char" && var_name != "void" && var_name != "string" && var_name != "vector" && var_name != "std" && var_name != "cin" && var_name != "cout" && var_name != "endl" && var_name != "if" && var_name != "else" && var_name != "for" && var_name != "while" && var_name != "return" && var_name != "switch" && var_name != "case" && var_name != "break" && var_name != "continue" && var_name != "goto") {
             variable_map[var_name] = "v" + RandomStringGenerator::generate(10);
         }
         temp = match.suffix();

@@ -3,6 +3,7 @@
 #include <sstream>
 #include <regex>
 #include <cstdlib>
+#include <algorithm>
 
 std::string MemoryObfuscation::replaceWithMemcpy(const std::string& code) {
     std::string result = code;
@@ -46,11 +47,29 @@ std::string MemoryObfuscation::replaceWithMemcpy(const std::string& code) {
         if (std::regex_match(stmt, match, simple_assign_regex)) {
             std::string dest = match[1];
             
+            // 检查左边是否是变量（不是常量或临时值）
+            // 向左查找，确认 dest 是赋值的目标
+            std::string left_side = result.substr(line_start, pos - line_start);
+            std::regex assign_target_regex(R"(.*\s+(\w+)\s*=\s*.*)");
+            std::smatch target_match;
+            if (!std::regex_match(left_side, target_match, assign_target_regex)) {
+                pos++;
+                continue;
+            }
+            
+            std::string target = target_match[1];
+            
+            // 跳过如果目标是数字（常量）
+            if (std::all_of(target.begin(), target.end(), ::isdigit)) {
+                pos++;
+                continue;
+            }
+            
             // 随机决定是否替换为内存操作
             if (rand() % 5 == 0) {
                 std::string temp_var = "tmp_" + RandomStringGenerator::generate(6);
                 std::stringstream ss;
-                ss << "{ int " << temp_var << " = " << stmt << "; memcpy(&" << dest << ", &" << temp_var << ", sizeof(" << dest << ")); }";
+                ss << "{ int " << temp_var << " = " << stmt << "; memcpy(&" << target << ", &" << temp_var << ", sizeof(" << target << ")); }";
                 result.replace(pos - 1, semicolon - pos + 2, ss.str());
                 pos += ss.str().length();
             } else {
