@@ -134,10 +134,10 @@ int main(int argc, char* argv[]) {
     std::string code_with_replacement = instruction_replacer.replaceInstructions(code_with_chunking);
     std::cout << "Step 10: Instructions replaced." << std::endl;
     
-    // 11. 字符串分拆与重组
+    // 11. 字符串分拆与重组（暂时禁用）
     std::cout << "Step 11: Splitting strings..." << std::endl;
     StringSplitter string_splitter;
-    std::string code_with_splitting = string_splitter.splitString(code_with_replacement);
+    std::string code_with_splitting = code_with_replacement;  // 直接跳过
     std::cout << "Step 11: Strings split." << std::endl;
     
     // 12. 函数内联与反内联

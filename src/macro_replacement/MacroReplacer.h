@@ -9,6 +9,8 @@ private:
     std::unordered_map<std::string, std::string> macro_map;
     std::unordered_map<std::string, std::string> reverse_map;
     void initCommonMacros();
+    bool isInStringLiteral(const std::string& code, size_t pos);
+    bool isInComment(const std::string& code, size_t pos);
 public:
     MacroReplacer();
     std::string generateMacros();

@@ -2,6 +2,32 @@
 #include "../random_string/RandomStringGenerator.h"
 #include <regex>
 
+bool VariableObfuscator::isInStringLiteral(const std::string& code, size_t pos) {
+    bool in_string = false;
+    bool in_char = false;
+    bool escaped = false;
+    
+    for (size_t i = 0; i < pos && i < code.length(); i++) {
+        if (escaped) {
+            escaped = false;
+            continue;
+        }
+        
+        if (code[i] == '\\') {
+            escaped = true;
+            continue;
+        }
+        
+        if (code[i] == '"') {
+            in_string = !in_string;
+        } else if (code[i] == '\'' && !in_string) {
+            in_char = !in_char;
+        }
+    }
+    
+    return in_string || in_char;
+}
+
 std::string VariableObfuscator::obfuscateVariables(const std::string& code) {
     std::string result = code;
     
@@ -28,10 +54,30 @@ std::string VariableObfuscator::obfuscateVariables(const std::string& code) {
         temp = match.suffix();
     }
     
-    // 替换变量使用
+    // 替换变量使用（跳过字符串字面量中的内容）
     for (const auto& pair : variable_map) {
-        std::regex use_regex(R"((\b)" + pair.first + R"(\b))");
-        result = std::regex_replace(result, use_regex, pair.second);
+        std::string var_name = pair.first;
+        std::string new_name = pair.second;
+        
+        size_t pos = 0;
+        while ((pos = result.find(var_name, pos)) != std::string::npos) {
+            // 检查是否在字符串字面量中
+            if (isInStringLiteral(result, pos)) {
+                pos += var_name.length();
+                continue;
+            }
+            
+            // 检查是否是完整的单词
+            bool is_word_start = (pos == 0 || !isalnum(result[pos - 1]) && result[pos - 1] != '_');
+            bool is_word_end = (pos + var_name.length() >= result.length() || !isalnum(result[pos + var_name.length()]) && result[pos + var_name.length()] != '_');
+            
+            if (is_word_start && is_word_end) {
+                result.replace(pos, var_name.length(), new_name);
+                pos += new_name.length();
+            } else {
+                pos += var_name.length();
+            }
+        }
     }
     
     return result;

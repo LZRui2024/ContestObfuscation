@@ -11,6 +11,7 @@ public:
 
 private:
     std::string generateSplitCode(const std::string& str);
+    bool isEncryptedString(const std::string& code, size_t quote_pos);
 };
 
 #endif // STRING_SPLITTER_H

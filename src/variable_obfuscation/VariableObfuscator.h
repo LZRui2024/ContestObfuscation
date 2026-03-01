@@ -7,6 +7,7 @@
 class VariableObfuscator {
 private:
     std::unordered_map<std::string, std::string> variable_map;
+    bool isInStringLiteral(const std::string& code, size_t pos);
 public:
     std::string obfuscateVariables(const std::string& code);
     void clear();
