@@ -5,11 +5,38 @@
 
 std::string IrrelevantCodeInjector::generateIrrelevantCode() {
     std::vector<std::string> code_snippets = {
-        "for (int i = 0; i < 1; i++) {}",
-        "if (false) { int x = 0; }",
-        "{ int y = 0; }",
-        "switch (0) { case 1: break; }",
-        "while (false) { int z = 0; }"
+        // 循环类
+        "for (int i = 0; i < 1; i++) { volatile int _t = i; }",
+        "for (int j = 0; j <= 0; j++) { int temp = j * 2; }",
+        "while (0) { int k = 0; k++; }",
+        "do { volatile int x = 1; } while (false)",
+        
+        // 条件类
+        "if (1 > 2) { int a = 10; } else { int b = 20; }",
+        "if (nullptr == nullptr) { volatile int val = 0; }",
+        "if (true && false) { int test = 1; }",
+        "if (0 != 0) { int dummy = 99; }",
+        
+        // 代码块类
+        "{ volatile int temp1 = 1, temp2 = 2; auto sum = temp1 + temp2; }",
+        "{ int arr[3] = {1, 2, 3}; volatile int x = arr[0]; }",
+        "{ auto lambda = []() { return 42; }; (void)lambda; }",
+        
+        // switch 类
+        "switch (1) { case 0: break; case 1: break; default: break; }",
+        "switch (2 + 2) { case 4: break; default: break; }",
+        
+        // 表达式类
+        "(void)(3 + 4 * 5)",
+        "static_cast<void>(100)",
+        "volatile int unused_flag = false; (void)unused_flag;",
+        
+        // 数组和向量
+        "int dummy_arr[5] = {0};",
+        "std::vector<int> temp_vec; temp_vec.reserve(0);",
+        
+        // 函数调用
+        "std::ios_base::sync_with_stdio(false);"
     };
     
     std::random_device rd;
@@ -98,7 +125,12 @@ std::string IrrelevantCodeInjector::injectIrrelevantCode(const std::string& code
             continue;
         }
         
-        if (count % 5 == 0) {
+        // 更随机的插入频率，避免固定模式
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_int_distribution<> distrib(1, 3);
+        
+        if (count % distrib(gen) == 0) {
             std::string irrelevant_code = generateIrrelevantCode();
             result.insert(current_pos + 1, " " + irrelevant_code + ";");
         }

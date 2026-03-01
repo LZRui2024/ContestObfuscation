@@ -19,6 +19,18 @@
 #include "../function_inlining/FunctionInliner.h"
 #include "../loop_transformation/LoopTransformer.h"
 #include "../exception_obfuscation/ExceptionObfuscator.h"
+#include "../equivalence_replacement/EquivalenceReplacer.h"
+#include "../fake_control_flow/FakeControlFlow.h"
+#include "../instruction_reordering/InstructionReordering.h"
+#include "../data_flow_obfuscation/DataFlowObfuscation.h"
+#include "../anti_semantic/AntiSemantic.h"
+#include "../junk_instructions/JunkInstructions.h"
+#include "../advanced_string_encryption/AdvancedStringEncryption.h"
+#include "../code_expansion/CodeExpansion.h"
+#include "../advanced_control_flow/AdvancedControlFlow.h"
+#include "../template_metaprogramming/TemplateMetaprogramming.h"
+#include "../constexpr_obfuscation/ConstexprObfuscation.h"
+#include "../memory_obfuscation/MemoryObfuscation.h"
 
 std::string readFile(const std::string& filename) {
     std::ifstream file(filename);
@@ -152,22 +164,93 @@ int main(int argc, char* argv[]) {
     std::string code_with_loop_transformation = loop_transformer.transformLoops(code_with_inlining);
     std::cout << "Step 13: Loops transformed." << std::endl;
     
-    // 14. 异常处理混淆
-    std::cout << "Step 14: Obfuscating with exceptions..." << std::endl;
-    ExceptionObfuscator exception_obfuscator;
-    std::string code_with_exception_obfuscation = exception_obfuscator.obfuscateWithExceptions(code_with_loop_transformation);
-    std::cout << "Step 14: Exceptions obfuscated." << std::endl;
+    // 14. 异常处理混淆（已在第 24 步实现更高级的版本）
+    std::cout << "Step 14: Skipping old exception obfuscation..." << std::endl;
+    std::string code_with_exception_obfuscation = code_with_loop_transformation;
+    std::cout << "Step 14: Skipped." << std::endl;
     
-    // 15. 生成宏定义
-    std::cout << "Step 15: Generating macros..." << std::endl;
+    // 15. 等价表达式替换（对抗 AI 分析）
+    std::cout << "Step 15: Replacing with equivalent expressions..." << std::endl;
+    EquivalenceReplacer equivalence_replacer;
+    std::string code_with_equivalence = equivalence_replacer.replaceEquivalences(code_with_exception_obfuscation);
+    std::cout << "Step 15: Equivalent expressions replaced." << std::endl;
+    
+    // 16. 指令重排（对抗 AI 分析）
+    std::cout << "Step 16: Reordering instructions..." << std::endl;
+    InstructionReordering instruction_reordering;
+    std::string code_with_reordering = instruction_reordering.reorderInstructions(code_with_equivalence);
+    std::cout << "Step 16: Instructions reordered." << std::endl;
+    
+    // 17. 数据流混淆（对抗 AI 分析）
+    std::cout << "Step 17: Obfuscating data flow..." << std::endl;
+    DataFlowObfuscation data_flow_obfuscation;
+    std::string code_with_data_flow = data_flow_obfuscation.obfuscateDataFlow(code_with_reordering);
+    std::cout << "Step 17: Data flow obfuscated." << std::endl;
+    
+    // 18. 反语义分析（对抗 AI 分析）
+    std::cout << "Step 18: Adding anti-semantic analysis..." << std::endl;
+    AntiSemantic anti_semantic;
+    std::string code_with_anti_semantic = anti_semantic.addAntiSemanticAnalysis(code_with_data_flow);
+    std::cout << "Step 18: Anti-semantic analysis added." << std::endl;
+    
+    // 19. 生成宏定义
+    std::cout << "Step 19: Generating macros..." << std::endl;
     MacroReplacer macro_replacer;
     std::string macros = macro_replacer.generateMacros();
-    std::cout << "Step 15: Macros generated." << std::endl;
+    std::cout << "Step 19: Macros generated." << std::endl;
     
-    // 16. 替换宏
-    std::cout << "Step 16: Replacing macros..." << std::endl;
-    std::string code_with_macros = macro_replacer.replaceMacros(code_with_exception_obfuscation);
-    std::cout << "Step 16: Macros replaced." << std::endl;
+    // 20. 替换宏
+    std::cout << "Step 20: Replacing macros..." << std::endl;
+    std::string code_with_macros = macro_replacer.replaceMacros(code_with_anti_semantic);
+    std::cout << "Step 20: Macros replaced." << std::endl;
+    
+    // 21. 虚假控制流（对抗 AI 分析）- 在宏替换之后执行，避免类型关键字被替换
+    std::cout << "Step 21: Adding fake control flow..." << std::endl;
+    FakeControlFlow fake_control_flow;
+    std::string code_with_fake_flow = fake_control_flow.addFakeControlFlow(code_with_macros);
+    std::cout << "Step 21: Fake control flow added." << std::endl;
+    
+    // 22. 添加花指令（对抗 AI 分析）
+    std::cout << "Step 22: Adding junk instructions..." << std::endl;
+    JunkInstructions junk_instructions;
+    std::string code_with_junk = junk_instructions.addJunkInstructions(code_with_fake_flow);
+    std::cout << "Step 22: Junk instructions added." << std::endl;
+    
+    // 23. 代码膨胀（循环展开）
+    std::cout << "Step 23: Expanding code..." << std::endl;
+    CodeExpansion code_expansion;
+    std::string code_with_expansion = code_expansion.expandLoops(code_with_junk);
+    std::cout << "Step 23: Code expanded." << std::endl;
+    
+    // 24. 异常混淆
+    std::cout << "Step 24: Adding exception handling..." << std::endl;
+    ExceptionObfuscator exception_obfuscator;
+    std::string code_with_exceptions = exception_obfuscator.addExceptionHandling(code_with_expansion);
+    std::cout << "Step 24: Exception handling added." << std::endl;
+    
+    // 25. 控制流平坦化增强
+    std::cout << "Step 25: Adding advanced control flow flattening..." << std::endl;
+    AdvancedControlFlow advanced_control_flow;
+    std::string code_with_advanced_flow = advanced_control_flow.addAdvancedFlattening(code_with_exceptions);
+    std::cout << "Step 25: Advanced control flow flattening added." << std::endl;
+    
+    // 26. 模板元编程混淆
+    std::cout << "Step 26: Adding template metaprogramming..." << std::endl;
+    TemplateMetaprogramming template_metaprogramming;
+    std::string code_with_templates = template_metaprogramming.addTemplateMetaprogramming(code_with_advanced_flow);
+    std::cout << "Step 26: Template metaprogramming added." << std::endl;
+    
+    // 27. 常量表达式混淆
+    std::cout << "Step 27: Obfuscating constants with constexpr..." << std::endl;
+    ConstexprObfuscation constexpr_obfuscation;
+    std::string code_with_constexpr = constexpr_obfuscation.obfuscateConstants(code_with_templates);
+    std::cout << "Step 27: Constants obfuscated with constexpr." << std::endl;
+    
+    // 28. 内存操作混淆
+    std::cout << "Step 28: Adding memory operations..." << std::endl;
+    MemoryObfuscation memory_obfuscation;
+    std::string code_with_memory_ops = memory_obfuscation.addMemoryOperations(code_with_constexpr);
+    std::cout << "Step 28: Memory operations added." << std::endl;
     
     // 确保包含必要的头文件
     if (includes.find("#include <iostream>") == std::string::npos) {
@@ -181,7 +264,7 @@ int main(int argc, char* argv[]) {
     }
     
     // 组合所有内容
-    std::string obfuscated_code = includes + "\n" + using_namespace + "\n" + macros + decrypt_function + useless_functions + jump_functions + code_with_macros;
+    std::string obfuscated_code = includes + "\n" + using_namespace + "\n" + macros + decrypt_function + useless_functions + jump_functions + code_with_memory_ops;
     
     writeFile(output_file, obfuscated_code);
     

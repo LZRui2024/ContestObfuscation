@@ -1,18 +1,14 @@
-#ifndef EXCEPTION_OBFUSCATOR_H
-#define EXCEPTION_OBFUSCATOR_H
+#ifndef EXCEPTION_OBFUSCATION_H
+#define EXCEPTION_OBFUSCATION_H
 
 #include <string>
 
 class ExceptionObfuscator {
 public:
-    ExceptionObfuscator();
-    std::string obfuscateWithExceptions(const std::string& code);
-    void clear();
-
+    std::string addExceptionHandling(const std::string& code);
+    
 private:
-    std::string generateExceptionCode(const std::string& code);
-    bool isClassOrStruct(const std::string& code, size_t brace_pos);
-    bool isFunctionBody(const std::string& code, size_t brace_pos);
+    std::string wrapInTryCatch(const std::string& code);
 };
 
-#endif // EXCEPTION_OBFUSCATOR_H
+#endif // EXCEPTION_OBFUSCATION_H

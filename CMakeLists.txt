@@ -30,6 +30,18 @@ add_executable (ContestObfuscation
     "src/instruction_replacement/InstructionReplacer.cpp"
     "src/loop_transformation/LoopTransformer.cpp"
     "src/string_splitting/StringSplitter.cpp"
+    "src/equivalence_replacement/EquivalenceReplacer.cpp"
+    "src/fake_control_flow/FakeControlFlow.cpp"
+    "src/instruction_reordering/InstructionReordering.cpp"
+    "src/data_flow_obfuscation/DataFlowObfuscation.cpp"
+    "src/anti_semantic/AntiSemantic.cpp"
+    "src/junk_instructions/JunkInstructions.cpp"
+    "src/advanced_string_encryption/AdvancedStringEncryption.cpp"
+    "src/code_expansion/CodeExpansion.cpp"
+    "src/advanced_control_flow/AdvancedControlFlow.cpp"
+    "src/template_metaprogramming/TemplateMetaprogramming.cpp"
+    "src/constexpr_obfuscation/ConstexprObfuscation.cpp"
+    "src/memory_obfuscation/MemoryObfuscation.cpp"
 )
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
